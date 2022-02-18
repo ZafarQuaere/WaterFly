@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="CallingDashBoardViewModel"
+            type="com.waterfly.user.ui.maincallingdashboard.CallingDashBoardViewModel" />
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment android:id="@+id/autocomplete_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_shape_bk">
+
+
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.main.MainActivity" />
+
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp">
+
+        <RelativeLayout
+            android:id="@+id/btnCallBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/call_grey_shape_bk"
+            android:clickable="false"
+            android:layout_marginRight="10dp"
+            android:onClick="@{(v) -> CallingDashBoardViewModel.onCallClick()}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call"
+                android:textColor="@color/whiteCardColor"
+                android:textSize="25dp"
+                android:layout_centerInParent="true"/>
+
+
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rButtonRefresh"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/refresh_btn_bg"
+                android:clickable="true"
+                android:onClick="@{(v) -> CallingDashBoardViewModel.onCallRefresh()}">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_refresh"
+                    app:tint="#000"/>
+                <!--                                    android:visibility="@{MainViewModel.isLoading ? View.GONE : View.VISIBLE}"-->
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                android:id="@+id/address_looking_up"
+                                style="?android:attr/progressBarStyleLarge"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerInParent="true"
+                                android:indeterminateTint="@color/black_effective"
+                                android:visibility="@{CallingDashBoardViewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+            android:layout_weight="1"
+            android:id="@+id/autoCompleteTextView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:hint="ENTER YOUR LOCATION"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@drawable/edit_shape_bk"
+            android:visibility="gone"/>
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rAutoCompleteSearch"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/edit_shape_bk"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="@{(v) -> CallingDashBoardViewModel.onClick()}">-->
+
+<!--            <TextView-->
+<!--                style="@style/parent"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:text="ENTER YOUR LOCATION"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textStyle="normal" />-->
+<!--        </RelativeLayout>-->
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:elevation="10dp"
+    app:cardCornerRadius="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@drawable/edit_shape_bk_white"
+            android:gravity="center"
+            android:onClick="@{(v) -> CallingDashBoardViewModel.onClick()}"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="Search other locations"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textStyle="normal"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/rAutoCompleteSearch"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/search_shape_bk"
+                android:clickable="true">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_search" />
+                <!--                                    android:visibility="@{MainViewModel.isLoading ? View.GONE : View.VISIBLE}"-->
+                <!--            <androidx.core.widget.ContentLoadingProgressBar-->
+                <!--                android:id="@+id/address_looking_up"-->
+                <!--                style="?android:attr/progressBarStyleLarge"-->
+                <!--                android:layout_width="30dp"-->
+                <!--                android:layout_height="30dp"-->
+                <!--                android:layout_centerInParent="true"-->
+                <!--                android:indeterminateTint="@color/black_effective"-->
+                <!--                android:visibility="@{MainViewModel.isLoading ? View.VISIBLE : View.GONE}" />-->
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</RelativeLayout>
+</layout>

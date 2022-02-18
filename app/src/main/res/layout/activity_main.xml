@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="MainViewModel"
+            type="com.waterfly.user.ui.main.MainViewModel" />
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        tools:ignore="HardcodedText">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment android:id="@+id/autocomplete_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/whiteCardColor"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:clickable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/whiteCardColor"
+                    android:clickable="true"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:text="WATERFLY"
+                        android:textAlignment="textStart"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/ic_userDetails"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:adjustViewBounds="true"
+                        android:onClick="@{(v) -> MainViewModel.onUserIconClick()}"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_user" />
+
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:background="@drawable/image_shape_bk"
+                    android:clipToOutline="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/banner_1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="131dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/image_shape_bk"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/banner_mini_1"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Search"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:textColor="#000000"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/image_shape_bk"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/banner_mini_2"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:textColor="#000000"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/image_shape_bk"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/banner_mini_3"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Deliver"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:textColor="#000000"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_shape_bk"
+                    android:gravity="center"
+                    android:onClick="@{(v) -> MainViewModel.onClick()}"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:text="Search other locations"
+                        android:textAlignment="textStart"
+                        android:textColor="#000000"
+                        android:textStyle="normal"
+                        android:visibility="visible" />
+
+                    <RelativeLayout
+                        android:id="@+id/rAutoCompleteSearch"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/search_shape_bk"
+                        android:clickable="true">
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_search" />
+                        <!--                                    android:visibility="@{MainViewModel.isLoading ? View.GONE : View.VISIBLE}"-->
+                        <!--            <androidx.core.widget.ContentLoadingProgressBar-->
+                        <!--                android:id="@+id/address_looking_up"-->
+                        <!--                style="?android:attr/progressBarStyleLarge"-->
+                        <!--                android:layout_width="30dp"-->
+                        <!--                android:layout_height="30dp"-->
+                        <!--                android:layout_centerInParent="true"-->
+                        <!--                android:indeterminateTint="@color/black_effective"-->
+                        <!--                android:visibility="@{MainViewModel.isLoading ? View.VISIBLE : View.GONE}" />-->
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/parent"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:text="Around you"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/login_shape_bk">
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:context=".ui.main.MainActivity" />
+                    <RelativeLayout
+                        android:id="@+id/r_mapLayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--        <fragment-->
+            <!--            android:id="@+id/place_autocomplete_fragment"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />-->
+
+        </RelativeLayout>
+
+        <!--this the navigation view which draws
+            and shows the navigation drawer-->
+        <!--include the menu created in the menu folder-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/navigation_menu"
+            app:headerLayout="@layout/header_navigation_drawer"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="LoginViewModel"
+            type="com.waterfly.user.ui.login.LoginViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mobile_screen_logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="@string/lets_get_started"
+                android:textColor="#333649"
+                android:textSize="@dimen/headerTextSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="We will send an OTP to your mobile number"
+                android:textColor="#85868f"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtMobileNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_shape_bk"
+                    android:hint="Enter Mobile Number"
+                    android:inputType="number"
+                    android:maxEms="10"
+                    android:maxLength="10"
+                    android:padding="10dp"
+                    android:textColor="#000" />
+
+                <RelativeLayout
+                    android:id="@+id/btnLogin"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/login_shape_bk"
+                    android:clickable="true"
+                    android:onClick="@{(v) -> LoginViewModel.onClick()}">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_forward"
+                        android:visibility="@{LoginViewModel.isLoading ? View.GONE : View.VISIBLE}" />
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/address_looking_up"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:indeterminateTint="@color/whiteCardColor"
+                        android:visibility="@{LoginViewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtErrorMassage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text=""
+                android:visibility="gone"
+                android:textColor="@color/redColor"
+                android:textSize="10dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/termsCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/parent"
+                        android:text="You are agreeing to our terms and conditions"
+                        android:textAlignment="textStart"
+                        android:textColor="#85868f"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        style="@style/parent"
+                        android:text="Terms and Privacy Policy"
+                        android:textAlignment="textStart"
+                        android:textColor="#3842fb"
+                        android:textStyle="normal"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_password_hint"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

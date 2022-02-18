@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="OtpVerificationViewModel"
+            type="com.waterfly.user.ui.otpverification.OtpVerificationViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+           android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/otp_screen_logo"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/headerTextSize"
+                android:textStyle="bold"
+                android:textColor="#333649"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Awesome, Thanks!" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:weightSum="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16dp"
+                android:textColor = "#85868f"
+                android:text="Please enter the OTP sent to " />
+    <TextView
+        android:id="@+id/verifyMobileNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="16dp"
+        android:textColor = "#000000"
+        android:textStyle="bold"
+        android:text="" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:text="  Edit"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp"
+        android:visibility="gone"
+        android:onClick="@{(v) -> OtpVerificationViewModel.onEditClick()"/>
+</LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:weightSum="6"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/txtOtp1"
+                            android:hint=""
+                            android:inputType="number"
+                            android:background="@drawable/edit_shape_bk"
+                            android:padding="10dp"
+                            android:textColor="#000"
+                            android:maxEms="1"
+                            android:maxLength="1"
+                            android:layout_marginRight="10dp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/txtOtp2"
+                            android:hint=""
+                            android:inputType="number"
+                            android:background="@drawable/edit_shape_bk"
+                            android:padding="10dp"
+                            android:textColor="#000"
+                            android:maxEms="1"
+                            android:maxLength="1"
+                            android:layout_marginRight="10dp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/txtOtp3"
+                            android:layout_weight="1"
+                            android:hint=""
+                            android:inputType="number"
+                            android:background="@drawable/edit_shape_bk"
+                            android:padding="10dp"
+                            android:textColor="#000"
+                            android:maxEms="1"
+                            android:maxLength="1"
+                            android:layout_marginRight="10dp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/txtOtp4"
+                            android:hint=""
+                            android:inputType="number"
+                            android:background="@drawable/edit_shape_bk"
+                            android:padding="10dp"
+                            android:textColor="#000"
+                            android:maxEms="1"
+                            android:maxLength="1"
+                            android:layout_marginRight="10dp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/txtOtp5"
+                            android:layout_weight="1"
+                            android:hint=""
+                            android:inputType="number"
+                            android:background="@drawable/edit_shape_bk"
+                            android:padding="10dp"
+                            android:textColor="#000"
+                            android:maxEms="1"
+                            android:maxLength="1"
+                            android:layout_marginRight="10dp"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/txtOtp6"
+                            android:hint=""
+                            android:background="@drawable/edit_shape_bk"
+                            android:padding="10dp"
+                            android:textColor="#000"
+                            android:maxEms="1"
+                            android:maxLength="1"
+                            android:inputType="number"
+                            android:layout_marginRight="10dp"/>
+
+                    </LinearLayout>
+
+                       <RelativeLayout
+                           android:id="@+id/btnLogin"
+                           android:layout_width="70dp"
+                           android:layout_height="match_parent"
+                           android:background="@drawable/login_shape_bk"
+                           android:clickable="true"
+                           android:onClick="@{(v) -> OtpVerificationViewModel.onClick()}">
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_forward"
+                               android:layout_centerInParent="true"
+                               android:visibility="@{OtpVerificationViewModel.isLoading ? View.GONE : View.VISIBLE}"/>
+
+                           <androidx.core.widget.ContentLoadingProgressBar
+                               android:id="@+id/address_looking_up"
+                               style="?android:attr/progressBarStyleLarge"
+                               android:layout_width="31dp"
+                               android:layout_height="29dp"
+                               android:layout_centerInParent="true"
+                               android:indeterminateTint="@color/whiteCardColor"
+                               android:visibility="@{OtpVerificationViewModel.isLoading ? View.VISIBLE : View.GONE}" />
+                       </RelativeLayout>
+                    </LinearLayout>
+
+<TextView
+                                    android:id="@+id/txtErrorMassage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/redColor"
+                                    android:textSize="10dp"
+                                    android:layout_gravity="left"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                   style="@style/parent"
+                   android:text="Didn't receive OTP ? "
+                   android:textAlignment="textStart"
+                   android:textColor="#85868f"
+                   android:textStyle="normal"/>
+
+                <RelativeLayout
+                    android:id="@+id/btnResend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:onClick="@{(v) -> OtpVerificationViewModel.onClickResend()}">
+
+                    <TextView
+                        android:id="@+id/txtResend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:text="Resend in"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/grey1"
+                        android:textStyle="normal"
+                        android:layout_centerVertical="true"
+                        android:visibility="@{OtpVerificationViewModel.isResendLoading ? View.GONE : View.VISIBLE}"/>
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="31dp"
+                        android:layout_height="29dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
+                        android:indeterminateTint="@color/colorPrimary"
+                        android:visibility="@{OtpVerificationViewModel.isResendLoading ? View.VISIBLE : View.GONE}" />
+                </RelativeLayout>
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txtResend"-->
+<!--                    style="@style/parent"-->
+<!--                    android:text="Resend in"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textColor="@color/grey1"-->
+<!--                    android:textStyle="normal"-->
+<!--                    android:clickable="false"-->
+<!--                    android:onClick="@{(v) -> OtpVerificationViewModel.onClickResend()}"/>-->
+
+                <TextView
+                    android:id="@+id/txtTimer"
+                    style="@style/parent"
+                    android:text=""
+                    android:textAlignment="textStart"
+                    android:textColor="#85868f"
+                    android:textStyle="normal"/>
+            </LinearLayout>
+
+                </LinearLayout>
+    </RelativeLayout>
+
+</layout>
