@@ -1,17 +1,14 @@
 package com.waterfly.user.ui.maincallingdashboard;
 
 import android.os.Build;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ObservableBoolean;
 
-import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.ui.base.BaseViewModel;
-import com.waterfly.user.utils.AppValidationMassages;
 
 import retrofit2.Call;
 import retrofit2.Callback;

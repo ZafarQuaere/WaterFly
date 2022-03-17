@@ -31,7 +31,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -47,7 +46,6 @@ import com.waterfly.user.R;
 import com.waterfly.user.ViewModelFactory;
 import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
-import com.waterfly.user.data.network.model.UserDetails;
 import com.waterfly.user.data.network.model.nearbyvendors.Datum;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.databinding.ActivityFullMapBinding;
@@ -55,7 +53,6 @@ import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.utils.AppConstants;
 
 import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 

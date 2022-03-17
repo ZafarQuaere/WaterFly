@@ -1,32 +1,15 @@
 package com.waterfly.user.ui.main;
 
 import android.os.Build;
-import android.util.ArrayMap;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.libraries.places.api.model.Place;
-import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
-import com.waterfly.user.data.network.model.SendOtpResponse;
-import com.waterfly.user.data.network.model.UserDetails;
-import com.waterfly.user.data.network.model.UserDetailsResponse;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.ui.base.BaseViewModel;
-import com.waterfly.user.ui.login.LoginViewModel;
-import com.waterfly.user.utils.AppConstants;
-import com.waterfly.user.utils.AppValidationMassages;
 
-import org.json.JSONObject;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

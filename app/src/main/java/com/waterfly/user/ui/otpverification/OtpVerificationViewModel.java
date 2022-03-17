@@ -3,20 +3,15 @@ package com.waterfly.user.ui.otpverification;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.ArrayMap;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
-import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
-import com.waterfly.user.data.network.model.LoginResponse;
 import com.waterfly.user.data.network.model.SendOtpResponse;
 import com.waterfly.user.data.network.model.verifiedOtpResponse.OtpVerifiedResponse;
 import com.waterfly.user.ui.base.BaseViewModel;
-import com.waterfly.user.ui.login.LoginNavigator;
-import com.waterfly.user.ui.login.LoginViewModel;
 import com.waterfly.user.utils.AppConstants;
 import com.waterfly.user.utils.AppValidationMassages;
 import com.waterfly.user.utils.CommonUtils;

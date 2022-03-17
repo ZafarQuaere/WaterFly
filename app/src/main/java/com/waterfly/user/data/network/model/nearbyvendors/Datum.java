@@ -1,12 +1,7 @@
 package com.waterfly.user.data.network.model.nearbyvendors;
 
-import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import retrofit2.http.Body;
 
 public class Datum
 //        implements Parcelable

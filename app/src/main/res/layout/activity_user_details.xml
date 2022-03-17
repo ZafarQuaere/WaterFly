@@ -62,13 +62,13 @@
                 android:layout_marginTop="10dp"/>
 
             <RelativeLayout
-                                       android:id="@+id/btnLogin"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="50dp"
-                                       android:background="@drawable/call_btn__shape_bk"
-                                       android:clickable="true"
-                                        android:layout_marginTop="10dp"
-                                       android:onClick="@{(v) -> UserDetailViewModel.onClick()}">
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/call_btn__shape_bk"
+                android:clickable="true"
+                android:onClick="@{(v) -> UserDetailViewModel.onClick()}">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,17 +79,16 @@
                     android:textSize="25dp"
                     android:visibility="@{UserDetailViewModel.isLoading ? View.GONE : View.VISIBLE}" />
 
-                                       <androidx.core.widget.ContentLoadingProgressBar
-                                           android:id="@+id/address_looking_up"
-                                           style="?android:attr/progressBarStyleLarge"
-                                           android:layout_width="30dp"
-                                           android:layout_height="30dp"
-                                           android:layout_centerInParent="true"
-                                           android:indeterminateTint="@color/whiteCardColor"
-                                           android:visibility="@{UserDetailViewModel.isLoading ? View.VISIBLE : View.GONE}"
-                                           />
+                <androidx.core.widget.ContentLoadingProgressBar
+                    android:id="@+id/address_looking_up"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:indeterminateTint="@color/whiteCardColor"
+                    android:visibility="@{UserDetailViewModel.isLoading ? View.VISIBLE : View.GONE}" />
 
-                                   </RelativeLayout>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtErrorMassage"

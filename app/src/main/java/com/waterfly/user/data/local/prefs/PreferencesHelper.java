@@ -1,8 +1,6 @@
 package com.waterfly.user.data.local.prefs;
 
 
-import com.waterfly.user.data.network.model.verifiedOtpResponse.OtpVerifiedResponse;
-
 public interface PreferencesHelper {
 
     String getAccessToken();

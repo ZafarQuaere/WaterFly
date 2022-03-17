@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -45,7 +44,6 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.waterfly.user.BR;
 import com.waterfly.user.R;
@@ -54,7 +52,6 @@ import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.databinding.ActivityMainBinding;
-import com.waterfly.user.generated.callback.OnClickListener;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.maincallingdashboard.CallingDashboard;
 import com.waterfly.user.utils.AppConstants;
@@ -142,7 +139,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 //        TextView txtUserEmail = (TextView)header.findViewById(R.id.txtUserEmail);
         TextView txtUserName = (TextView)header.findViewById(R.id.txtUserName);
 
-        txtUserName.setText("Hello Wasif Sajjad");
+        txtUserName.setText("Hello");
 //        txtUserEmail.setText("Wasif.developer@gmail.com");
 
         if (!Places.isInitialized()) {

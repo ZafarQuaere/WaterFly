@@ -3,7 +3,6 @@ package com.waterfly.user.data.local.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.waterfly.user.WaterFlyApp;
-import com.waterfly.user.data.network.model.verifiedOtpResponse.OtpVerifiedResponse;
 import com.waterfly.user.utils.AppConstants;
 
 public class AppPreferencesHelper implements PreferencesHelper {
@@ -46,7 +45,5 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setAccessToken(String accessToken) {
         mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).apply();
     }
-
-
 
 }

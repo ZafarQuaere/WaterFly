@@ -3,15 +3,12 @@ package com.waterfly.user.ui.userdetails;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.ArrayMap;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
-import com.waterfly.user.WaterFlyApp;
+
 import com.waterfly.user.data.DataManager;
-import com.waterfly.user.data.network.model.SendOtpResponse;
-import com.waterfly.user.data.network.model.UserDetails;
 import com.waterfly.user.data.network.model.UserDetailsResponse;
 import com.waterfly.user.ui.base.BaseViewModel;
 import com.waterfly.user.utils.AppConstants;

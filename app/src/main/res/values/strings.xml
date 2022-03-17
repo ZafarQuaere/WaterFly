@@ -26,7 +26,9 @@
 
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
-
+    <string name="gps_dialog_title">GPS Turned off</string>
+    <string name="gps_dialog_message">Allow WaterFly to turn on your phone\'s GPS for accurate vendor locations</string>
+    <string name="gps_dialog_positive_button">TURN ON GPS</string>
 
 
 </resources>

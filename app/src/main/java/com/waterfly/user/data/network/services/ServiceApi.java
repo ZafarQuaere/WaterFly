@@ -8,15 +8,12 @@ import com.waterfly.user.data.network.model.UserDetailsResponse;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.data.network.model.verifiedOtpResponse.OtpVerifiedResponse;
 
-import org.json.JSONObject;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ServiceApi {

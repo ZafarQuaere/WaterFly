@@ -10,11 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.waterfly.user.R;
-import com.waterfly.user.data.network.model.UserDetails;
 import com.waterfly.user.data.network.model.nearbyvendors.Datum;
-import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 
 import java.util.ArrayList;
 import java.util.List;
