@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 
 import androidx.annotation.Nullable;
@@ -18,7 +19,7 @@ import com.waterfly.user.data.DataManager;
 import com.waterfly.user.databinding.ActivitySplashBinding;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.login.LoginActivity;
-import com.waterfly.user.ui.main.MainActivity;
+import com.waterfly.user.ui.main.BannerActivity;
 
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {
@@ -27,7 +28,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     private SplashViewModel mSplashViewModel;
     private boolean gpsStatus;
     private AlertDialog alertDialog = null;
-    private static final int GPS_STATUS_REQUEST = 10;
+    public static final int GPS_STATUS_REQUEST = 10;
 
     @Override
     public int getBindingVariable() {
@@ -54,9 +55,14 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         gpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (gpsStatus) {
             alertDialog.dismiss();
-            Intent intent = MainActivity.newIntent(SplashActivity.this);
-            startActivity(intent);
-            finish();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = BannerActivity.newIntent(SplashActivity.this);
+                    startActivity(intent);
+                    finish();
+                }
+            },500);
         } else {
             openGPSDialog();
         }

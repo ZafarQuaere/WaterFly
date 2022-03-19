@@ -1,5 +1,7 @@
 package com.waterfly.user.ui.maincallingdashboard;
 
+import static com.waterfly.user.ui.splash.SplashActivity.GPS_STATUS_REQUEST;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -351,25 +353,18 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 //set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
 //set title
-                .setTitle("GPS Turned off")
+                .setTitle(getString(R.string.gps_dialog_title))
 //set message
-                .setMessage("Allow WaterFly to turn on your phone GPS for accurate vendor locations")
+                .setMessage(getString(R.string.gps_dialog_message))
 //set positive button
-                .setPositiveButton("TURN ON GPS", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.gps_dialog_positive_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
-                        startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
+                        startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), GPS_STATUS_REQUEST);
                     }
                 }).setCancelable(false);
-//set negative button
-//                .setNegativeButton("TURN ON GPS", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
-//
-//                    }
-//                });
+
         alertDialog= alert.create();
     }
 
@@ -401,11 +396,22 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 
     @Override
     public void onCallRefresh() {
-        if(place == null || place.getLatLng() == null) {
-            mMainViewModel.getNearByVendorDetails(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
-        }else{
-            mMainViewModel.getNearByVendorDetails(place.getLatLng().latitude,place.getLatLng().longitude);
-              }
+//        try {
+            if (lastKnownLocation == null) {
+                updateLocationUI();
+                CheckGpsStatus(place);
+            } else {
+                if (place == null || place.getLatLng() == null) {
+                    mMainViewModel.getNearByVendorDetails(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                } else {
+                    mMainViewModel.getNearByVendorDetails(place.getLatLng().latitude, place.getLatLng().longitude);
+                }
+            }
+        /*} catch (Exception e) {
+            updateLocationUI();
+            CheckGpsStatus(place);
+            e.printStackTrace();
+        }*/
     }
 
     @Override

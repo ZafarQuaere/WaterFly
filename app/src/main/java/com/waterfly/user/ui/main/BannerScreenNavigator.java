@@ -4,7 +4,7 @@ package com.waterfly.user.ui.main;
 import com.google.android.libraries.places.api.model.Place;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 
-public interface MainScreenNavigator {
+public interface BannerScreenNavigator {
 
     void handleError(Throwable throwable);
 

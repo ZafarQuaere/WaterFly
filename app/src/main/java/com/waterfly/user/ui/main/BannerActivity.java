@@ -51,7 +51,7 @@ import com.waterfly.user.ViewModelFactory;
 import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
-import com.waterfly.user.databinding.ActivityMainBinding;
+import com.waterfly.user.databinding.ActivityBannerBinding;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.maincallingdashboard.CallingDashboard;
 import com.waterfly.user.utils.AppConstants;
@@ -59,10 +59,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainScreenNavigator, OnMapReadyCallback {
+public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerViewModel> implements BannerScreenNavigator, OnMapReadyCallback {
 
-    private ActivityMainBinding mActivityMainBinding;
-    private MainViewModel mMainViewModel;
+    private ActivityBannerBinding activityBannerBinding;
+    private BannerViewModel mBannerViewModel;
     private GoogleMap mMap = null;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION=1;
@@ -79,26 +79,26 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, BannerActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;
     }
 
     @Override
     public int getBindingVariable() {
-        return BR.MainViewModel;
+        return BR.BannerViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_banner;
     }
 
     @Override
-    public MainViewModel getViewModel() {
+    public BannerViewModel getViewModel() {
         ViewModelFactory factory = new ViewModelFactory(DataManager.getInstance());
-        mMainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
-        return mMainViewModel;
+        mBannerViewModel = ViewModelProviders.of(this, factory).get(BannerViewModel.class);
+        return mBannerViewModel;
     }
 
     @Override
@@ -118,8 +118,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityMainBinding = getViewDataBinding();
-        mMainViewModel.setNavigator(this);
+        activityBannerBinding = getViewDataBinding();
+        mBannerViewModel.setNavigator(this);
         createGPSDialog();
         createPermissionDialog();
 
@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         findViewById(R.id.r_mapLayer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMainViewModel.openFullMapView(null);
+                mBannerViewModel.openFullMapView(null);
             }
         });
     }
@@ -271,7 +271,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
-                                mMainViewModel.getNearByVendorDetails(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
+                                mBannerViewModel.getNearByVendorDetails(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
 
                             }
                         } else {
@@ -401,7 +401,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openFullMapView(NearByVendorsResponse nearByVendorsResponse,Place place) {
-        Intent intent = CallingDashboard.newIntent(MainActivity.this);
+        Intent intent = CallingDashboard.newIntent(BannerActivity.this);
         intent.putExtra(AppConstants.PLACES_DETAILS,place);
         startActivity(intent);
     }
@@ -451,7 +451,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
-                mMainViewModel.openFullMapView(place);
+                mBannerViewModel.openFullMapView(place);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);

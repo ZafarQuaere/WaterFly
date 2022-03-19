@@ -14,9 +14,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainViewModel extends BaseViewModel<MainScreenNavigator> {
+public class BannerViewModel extends BaseViewModel<BannerScreenNavigator> {
     private NearByVendorsResponse nearByVendorsResponse;
-    public MainViewModel(DataManager dataManager) {
+    public BannerViewModel(DataManager dataManager) {
         super(dataManager);
     }
 
@@ -37,7 +37,7 @@ public class MainViewModel extends BaseViewModel<MainScreenNavigator> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void getNearByVendorDetails(double lat,double lng) {
         setIsLoading(true);
-        getDataManager().getUserService().getApiService().getNearByVendorDetails(getDataManager().getSharedPreference().getUserId(),lat,lng).enqueue(new MainViewModel.NearByVendors());
+        getDataManager().getUserService().getApiService().getNearByVendorDetails(getDataManager().getSharedPreference().getUserId(),lat,lng).enqueue(new BannerViewModel.NearByVendors());
     }
     private void setNearByVendorDetailsOnMap(NearByVendorsResponse nearByVendorsResponse){
             getNavigator().nearByVendorDetails(nearByVendorsResponse);

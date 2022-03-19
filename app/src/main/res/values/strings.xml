@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Waterfly</string>
-    <string name="google_maps_key">AIzaSyBetZqcfkkGVUg77zjLA8wzVuOX8q9lMdc</string>
+    <string name="google_maps_key1">AIzaSyBetZqcfkkGVUg77zjLA8wzVuOX8q9lMdc</string>
     <string name="google_maps_key_place">AIzaSyDVDloatevH6ZB2dNqorDljbt1rGlDVpoQ</string>
 
     <string name="login_email_hint">Email</string>

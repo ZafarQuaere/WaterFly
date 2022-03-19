@@ -20,7 +20,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
             public void run() {
                 decideNextActivity();
             }
-        },2000);
+        },1500);
     }
 
     private void decideNextActivity() {

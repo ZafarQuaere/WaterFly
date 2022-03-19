@@ -25,6 +25,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
+       <!-- <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}"/>-->
+
         <activity
             android:exported = 'true'
             android:name="com.waterfly.user.ui.splash.SplashActivity"
@@ -38,7 +42,7 @@
         <activity android:name="com.waterfly.user.ui.otpverification.OtpVerification"
             android:theme="@style/LoginAppTheme"/>
 
-        <activity android:name="com.waterfly.user.ui.main.MainActivity"/>
+        <activity android:name="com.waterfly.user.ui.main.BannerActivity"/>
 
         <activity android:name="com.waterfly.user.ui.login.LoginActivity"
             android:windowSoftInputMode="adjustPan"

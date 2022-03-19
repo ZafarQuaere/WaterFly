@@ -13,11 +13,10 @@ import com.waterfly.user.BR;
 import com.waterfly.user.R;
 import com.waterfly.user.ViewModelFactory;
 import com.waterfly.user.data.DataManager;
-import com.waterfly.user.databinding.ActivityLoginBinding;
 import com.waterfly.user.databinding.ActivityOtpVerifyBinding;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.login.LoginActivity;
-import com.waterfly.user.ui.main.MainActivity;
+import com.waterfly.user.ui.main.BannerActivity;
 import com.waterfly.user.ui.userdetails.UserDetailActivity;
 import com.waterfly.user.utils.AppConstants;
 import com.waterfly.user.utils.AppValidationMassages;
@@ -137,7 +136,7 @@ public class OtpVerification extends BaseActivity<ActivityOtpVerifyBinding, OtpV
 
     @Override
     public void openMainActivity() {
-        Intent intent = MainActivity.newIntent(OtpVerification.this);
+        Intent intent = BannerActivity.newIntent(OtpVerification.this);
         startActivity(intent);
         finish();
     }
