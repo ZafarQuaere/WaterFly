@@ -29,6 +29,10 @@
     <string name="gps_dialog_title">GPS Turned off</string>
     <string name="gps_dialog_message">Allow WaterFly to turn on your phone\'s GPS for accurate vendor locations</string>
     <string name="gps_dialog_positive_button">TURN ON GPS</string>
+    <string name="no_vendor_near_you">No Vendor near you</string>
+    <string name="dlg_location_permission_title">Location permission required</string>
+    <string name="dlg_location_permission_message">Allow WaterFly to automatically detect your current location to show your available vendors</string>
+    <string name="dlg_location_permission_positive_btn">Open Settings</string>
 
 
 </resources>

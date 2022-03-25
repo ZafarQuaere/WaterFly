@@ -40,7 +40,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         return R.layout.activity_splash;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +54,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         gpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (gpsStatus) {
             alertDialog.dismiss();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = BannerActivity.newIntent(SplashActivity.this);
-                    startActivity(intent);
-                    finish();
-                }
+            new Handler().postDelayed(() -> {
+                Intent intent = BannerActivity.newIntent(SplashActivity.this);
+                startActivity(intent);
+                finish();
             },500);
         } else {
             openGPSDialog();

@@ -33,6 +33,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -79,7 +80,8 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     private boolean gpsStatus;
     private int allowLocationPermissionCount = 1;
     private NearByVendorsResponse mNearByVendorsResponse;
-
+    private MarkerOptions vendorMarkerOptions;
+    private Marker vendorMarker;
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, CallingDashboard.class);
         return intent;
@@ -285,21 +287,8 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 
     private void openDialogVendorNotFound(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
-//set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
-//set title
-                .setTitle("No Vendors found")
-//set message
-//                .setMessage("Allow WaterFly to automatically detect your current location to show your available vendors")
-//set positive button
-//                .setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        dialogInterface.dismiss();
-//                        //set what would happen when positive button is clicked
-//                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
-//                    }
-//                })
+                .setTitle(getString(R.string.no_vendor_near_you))
 //set negative button
                 .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -423,6 +412,9 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         this.mNearByVendorsResponse = nearByVendorsResponse;
         if(nearByVendorsResponse == null){
             userDetailsAdapter.setItems(null);
+            if (vendorMarker != null) {
+               vendorMarker.remove();
+            }
             openDialogVendorNotFound();
             mActivityMainBinding.btnCallBtn.setBackground(getResources().getDrawable(R.drawable.call_grey_shape_bk));
             mActivityMainBinding.btnCallBtn.setClickable(false);
@@ -435,11 +427,10 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 
             if(nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
                 for(int i =0 ; i < nearByVendorsResponse.getData().size() ; i++) {
-                    MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
+                    vendorMarkerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
                             Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                             .icon(icon);
-
-                    mMap.addMarker(markerOptions);
+                    vendorMarker = mMap.addMarker(vendorMarkerOptions);
                 }
             }
         }

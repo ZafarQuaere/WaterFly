@@ -34,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,6 +78,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
 
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    private  Marker vendorMarker;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, BannerActivity.class);
@@ -103,15 +105,16 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
 
     @Override
     protected void onResume() {
-
-//        // Turn on the My Location layer and the related control on the map.
-//        if(!locationPermissionGranted){
-//            updateLocationUI();
-//        }
-////        // Get the current location of the device and set the position of the map.
-//        if(!gpsStatus ) {
-//            CheckGpsStatus();
-//        }
+        mBannerViewModel.setNavigator(this);
+        createGPSDialog();
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.google_maps_key_place), Locale.ENGLISH);
+        }
+        initAutoCompleteSearch();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         super.onResume();
     }
 
@@ -119,19 +122,11 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityBannerBinding = getViewDataBinding();
-        mBannerViewModel.setNavigator(this);
-        createGPSDialog();
-        createPermissionDialog();
-
         drawerLayout = findViewById(R.id.drawerLayout);
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        // pass the Open and Close toggle for the drawer layout listener
-        // to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
+        createPermissionDialog();
         // to make the Navigation drawer icon always appear on the action bar
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
@@ -142,17 +137,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
         txtUserName.setText("Hello");
 //        txtUserEmail.setText("Wasif.developer@gmail.com");
 
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), getString(R.string.google_maps_key_place), Locale.ENGLISH);
-        }
 
-        initAutoCompleteSearch();
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
         findViewById(R.id.r_mapLayer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +148,6 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -196,13 +180,13 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
-                Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
+                Log.i(AppConstants.TAG, "Place: " + place.getName() + ", " + place.getId());
             }
 
             @Override
             public void onError(@NonNull Status status) {
                 // TODO: Handle the error.
-                Log.i("TAG", "An error occurred: " + status);
+                Log.i(AppConstants.TAG, "An error occurred: " + status);
             }
         });
     }
@@ -292,29 +276,16 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
 
     private void createGPSDialog(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
-//set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
-//set title
                 .setTitle("GPS Turned off")
-//set message
                 .setMessage("Allow WaterFly to turn on your phone GPS for accurate vendor locations")
-//set positive button
                 .setPositiveButton("TURN ON GPS", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-                        //set what would happen when positive button is clicked
                         startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
                     }
                 }).setCancelable(false);
-//set negative button
-//                .setNegativeButton("TURN ON GPS", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
-//
-//                    }
-//                });
+
         alertDialog= alert.create();
     }
 
@@ -346,33 +317,27 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
 
     @Override
     public void nearByVendorDetails(NearByVendorsResponse nearByVendorsResponse) {
-
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_car);
-
         if(nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
-
             for(int i =0 ; i < nearByVendorsResponse.getData().size() ; i++) {
                 MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
                         Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                         .icon(icon);
-                mMap.addMarker(markerOptions);
+                vendorMarker = mMap.addMarker(markerOptions);
             }
         }else{
-//            Toast.makeText(WaterFlyApp.getInstance(), "No Vendor Found", Toast.LENGTH_SHORT).show();
-//            openDialog();
+            // No vendor available
+            if (vendorMarker != null)
+                vendorMarker.remove();
         }
     }
 
     private void createPermissionDialog(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
-//set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
-//set title
-                .setTitle("Location permission required")
-//set message
-                .setMessage("Allow WaterFly to automatically detect your current location to show your available vendors")
-//set positive button
-                .setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.dlg_location_permission_title))
+                .setMessage(getString(R.string.dlg_location_permission_message))
+                .setPositiveButton(getString(R.string.dlg_location_permission_positive_btn), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -383,19 +348,10 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
                         startActivityForResult(intent,0);
                     }
                 }).setCancelable(false);
-//set negative button
-//                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        //set what should happen when negative button is clicked
-//                        Toast.makeText(getApplicationContext(),"Nothing Happened",Toast.LENGTH_LONG).show();
-//                    }
-//                })
         alertDialogPermission= alert.create();
     }
 
     private void openDialog(){
-
         alertDialogPermission.show();
     }
 
@@ -419,10 +375,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
             super.onBackPressed();
         }
     }
-
-
-
-
+    
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -450,12 +403,12 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
+                Log.i(AppConstants.TAG, "Place: " + place.getName() + ", " + place.getId());
                 mBannerViewModel.openFullMapView(place);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i("TAG", status.getStatusMessage());
+                Log.i(AppConstants.TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
@@ -471,11 +424,6 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
     }
 
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
