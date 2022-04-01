@@ -303,13 +303,9 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 
     private void createPermissionDialog(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
-//set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
-//set title
                 .setTitle("Location permission required")
-//set message
                 .setMessage("Allow WaterFly to automatically detect your current location to show your available vendors")
-//set positive button
                 .setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -321,31 +317,18 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                         startActivityForResult(intent,0);
                     }
                 }).setCancelable(false);
-//set negative button
-//                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        //set what should happen when negative button is clicked
-//                        Toast.makeText(getApplicationContext(),"Nothing Happened",Toast.LENGTH_LONG).show();
-//                    }
-//                })
         alertDialogPermission= alert.create();
     }
 
     private void openDialog(){
-
         alertDialogPermission.show();
     }
 
     private void createGPSDialog(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
-//set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
-//set title
                 .setTitle(getString(R.string.gps_dialog_title))
-//set message
                 .setMessage(getString(R.string.gps_dialog_message))
-//set positive button
                 .setPositiveButton(getString(R.string.gps_dialog_positive_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -410,11 +393,11 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     @Override
     public void nearByVendorDetails(NearByVendorsResponse nearByVendorsResponse) {
         this.mNearByVendorsResponse = nearByVendorsResponse;
+        if (vendorMarker != null) {
+            vendorMarker.remove();
+        }
         if(nearByVendorsResponse == null){
             userDetailsAdapter.setItems(null);
-            if (vendorMarker != null) {
-               vendorMarker.remove();
-            }
             openDialogVendorNotFound();
             mActivityMainBinding.btnCallBtn.setBackground(getResources().getDrawable(R.drawable.call_grey_shape_bk));
             mActivityMainBinding.btnCallBtn.setClickable(false);
@@ -422,11 +405,12 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
             mActivityMainBinding.btnCallBtn.setBackground(getResources().getDrawable(R.drawable.call_btn__shape_bk));
             mActivityMainBinding.btnCallBtn.setClickable(true);
             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_car);
-
             userDetailsAdapter.setItems(nearByVendorsResponse.getData());
-
-            if(nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
-                for(int i =0 ; i < nearByVendorsResponse.getData().size() ; i++) {
+            if (nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
+                for (int i = 0; i < nearByVendorsResponse.getData().size(); i++) {
+                    if (vendorMarker != null) {
+                        vendorMarker.remove();
+                    }
                     vendorMarkerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
                             Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                             .icon(icon);
@@ -435,7 +419,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
             }
         }
     }
-
 
     @Override
     public void localDatafetch() {

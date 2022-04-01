@@ -320,6 +320,8 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_car);
         if(nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
             for(int i =0 ; i < nearByVendorsResponse.getData().size() ; i++) {
+                if (vendorMarker != null)
+                    vendorMarker.remove();
                 MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
                         Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                         .icon(icon);
