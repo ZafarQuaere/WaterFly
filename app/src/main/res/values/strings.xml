@@ -34,5 +34,8 @@
     <string name="dlg_location_permission_message">Allow WaterFly to automatically detect your current location to show your available vendors</string>
     <string name="dlg_location_permission_positive_btn">Open Settings</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_full_screen">ca-app-pub-3940256099942544/1033173712</string>
+
 
 </resources>

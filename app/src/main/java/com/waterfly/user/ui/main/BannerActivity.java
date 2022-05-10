@@ -24,6 +24,13 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAdsInitProvider;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -75,6 +82,8 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
     private boolean gpsStatus;
     private AlertDialog alertDialog=null,alertDialogPermission=null;
     private int allowLocationPermissionCount = 1;
+    private AdView adView;
+    private AdRequest adRequest;
 
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
@@ -116,11 +125,15 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         activityBannerBinding = getViewDataBinding();
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -135,8 +148,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
         TextView txtUserName = (TextView)header.findViewById(R.id.txtUserName);
 
         txtUserName.setText("Hello");
-//        txtUserEmail.setText("Wasif.developer@gmail.com");
-
+//       txtUserEmail.setText("Wasif.developer@gmail.com");
 
         findViewById(R.id.r_mapLayer).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +156,32 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
                 mBannerViewModel.openFullMapView(null);
             }
         });
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
     @Override
