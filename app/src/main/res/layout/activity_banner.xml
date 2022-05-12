@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View" />
@@ -10,6 +10,7 @@
             name="BannerViewModel"
             type="com.waterfly.user.ui.main.BannerViewModel" />
     </data>
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
@@ -21,261 +22,243 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <fragment android:id="@+id/autocomplete_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <fragment
+                android:id="@+id/autocomplete_fragment"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                />
-
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/whiteCardColor"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="16dp"
-                android:clickable="true">
+                android:layout_height="wrap_content" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_height="match_parent"
                     android:background="@color/whiteCardColor"
                     android:clickable="true"
-                    android:gravity="center_vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/whiteCardColor"
+                        android:clickable="true"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/parent"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:text="WATERFLY"
+                            android:textAlignment="textStart"
+                            android:textColor="#000000"
+                            android:textSize="20dp"
+                            android:textStyle="normal" />
+
+                        <ImageView
+                            android:id="@+id/ic_userDetails"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:adjustViewBounds="true"
+                            android:onClick="@{(v) -> BannerViewModel.onUserIconClick()}"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_user"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:background="@drawable/image_shape_bk"
+                        android:clipToOutline="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/banner_1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_shape_bk"
+                                android:clipToOutline="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/banner_mini_1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Search"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_shape_bk"
+                                android:clipToOutline="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/banner_mini_2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Select"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_shape_bk"
+                                android:clipToOutline="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/banner_mini_3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Deliver"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        ads:adSize="LARGE_BANNER"
+                        ads:adUnitId="@string/banner_ad_unit_id" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_shape_bk"
+                        android:gravity="center"
+                        android:onClick="@{(v) -> BannerViewModel.onClick()}"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="Search other locations"
+                            android:textAlignment="textStart"
+                            android:textColor="#000000"
+                            android:textStyle="normal"
+                            android:visibility="visible" />
+
+                        <RelativeLayout
+                            android:id="@+id/rAutoCompleteSearch"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/search_shape_bk"
+                            android:clickable="true">
+
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_search" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
 
                     <TextView
                         style="@style/parent"
+                        android:layout_centerVertical="true"
                         android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:text="WATERFLY"
+                        android:text="Around you"
                         android:textAlignment="textStart"
                         android:textColor="#000000"
                         android:textSize="20dp"
-                        android:textStyle="normal" />
-
-                    <ImageView
-                        android:id="@+id/ic_userDetails"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="right|center_vertical"
-                        android:adjustViewBounds="true"
-                        android:onClick="@{(v) -> BannerViewModel.onUserIconClick()}"
-                        android:scaleType="fitXY"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_user" />
-
-                </LinearLayout>
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="185dp"
-                    android:background="@drawable/image_shape_bk"
-                    android:clipToOutline="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/banner_1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="131dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/image_shape_bk"
-                            android:clipToOutline="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/banner_mini_1"
-                            android:layout_weight="1"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Search"
-                            android:textAlignment="center"
-                            android:layout_gravity="center"
-                            android:textColor="#000000"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/image_shape_bk"
-                            android:clipToOutline="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/banner_mini_2"
-                            android:layout_weight="1"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Select"
-                            android:textAlignment="center"
-                            android:layout_gravity="center"
-                            android:textColor="#000000"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/image_shape_bk"
-                            android:clipToOutline="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/banner_mini_3"
-                            android:layout_weight="1"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Deliver"
-                            android:textAlignment="center"
-                            android:layout_gravity="center"
-                            android:textColor="#000000"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-<!--<RelativeLayout-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
-
-<!--    <com.google.android.gms.ads.AdView-->
-<!--        android:id="@+id/ad_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        app:adSize="BANNER"-->
-<!--        app:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ads:adSize="MEDIUM_RECTANGLE"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        android:layout_marginTop="10dp"/>
-<!--</RelativeLayout>-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="47dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_shape_bk"
-                    android:gravity="center"
-                    android:onClick="@{(v) -> BannerViewModel.onClick()}"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:text="Search other locations"
-                        android:textAlignment="textStart"
-                        android:textColor="#000000"
-                        android:textStyle="normal"
-                        android:visibility="visible" />
+                        android:textStyle="bold" />
 
                     <RelativeLayout
-                        android:id="@+id/rAutoCompleteSearch"
-                        android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/search_shape_bk"
-                        android:clickable="true">
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginBottom="50dp"
+                        android:background="@drawable/login_shape_bk">
 
+                        <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:context=".ui.main.BannerActivity" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/ic_search" />
-                        <!--                                    android:visibility="@{BannerViewModel.isLoading ? View.GONE : View.VISIBLE}"-->
-                        <!--            <androidx.core.widget.ContentLoadingProgressBar-->
-                        <!--                android:id="@+id/address_looking_up"-->
-                        <!--                style="?android:attr/progressBarStyleLarge"-->
-                        <!--                android:layout_width="30dp"-->
-                        <!--                android:layout_height="30dp"-->
-                        <!--                android:layout_centerInParent="true"-->
-                        <!--                android:indeterminateTint="@color/black_effective"-->
-                        <!--                android:visibility="@{BannerViewModel.isLoading ? View.VISIBLE : View.GONE}" />-->
-
+                        <RelativeLayout
+                            android:id="@+id/r_mapLayer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="true" />
                     </RelativeLayout>
-
-
                 </LinearLayout>
 
-                <TextView
-                    style="@style/parent"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:text="Around you"
-                    android:textAlignment="textStart"
-                    android:textColor="#000000"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/login_shape_bk">
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:context=".ui.main.BannerActivity" />
-
-                    <RelativeLayout
-                        android:id="@+id/r_mapLayer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <!--        <fragment-->
-            <!--            android:id="@+id/place_autocomplete_fragment"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />-->
+            </ScrollView>
 
         </RelativeLayout>
 
@@ -287,9 +270,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:menu="@menu/navigation_menu"
             app:headerLayout="@layout/header_navigation_drawer"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/navigation_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
