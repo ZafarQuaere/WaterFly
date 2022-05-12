@@ -23,6 +23,16 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -59,6 +69,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
 public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, CallingDashBoardViewModel> implements UserDetailsAdapter.UserDetailsListener, CallingDashboardNavigator, OnMapReadyCallback {
 
     private ActivityFullMapBinding mActivityMainBinding;
@@ -82,6 +95,8 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     private NearByVendorsResponse mNearByVendorsResponse;
     private MarkerOptions vendorMarkerOptions;
     private Marker vendorMarker;
+    private InterstitialAd mInterstitialAd;
+
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, CallingDashboard.class);
         return intent;
@@ -130,6 +145,60 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+
+        mInterstitialAd.load(this,getString(R.string.interstitial_full_screen), adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+                        mInterstitialAd.show(CallingDashboard.this);
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+//                        Log.i(TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+
+//        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+//            @Override
+//            public void onAdDismissedFullScreenContent() {
+//                // Called when fullscreen content is dismissed.
+//                Log.d("TAG", "The ad was dismissed.");
+//            }
+//
+//            @Override
+//            public void onAdFailedToShowFullScreenContent(AdError adError) {
+//                // Called when fullscreen content failed to show.
+//                Log.d("TAG", "The ad failed to show.");
+//            }
+//
+//            @Override
+//            public void onAdShowedFullScreenContent() {
+//                // Called when fullscreen content is shown.
+//                // Make sure to set your reference to null so you don't
+//                // show it a second time.
+//                mInterstitialAd = null;
+//                Log.d("TAG", "The ad was shown.");
+//            }
+//        });
+    }
+
+    private void showInterstitial() {
+//        if (mInterstitialAd.show();) {
+
+//        }
     }
 
     public void CheckGpsStatus(Place place){
@@ -347,6 +416,11 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 
     @Override
     public void onCallClick() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(CallingDashboard.this);
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
         getPhonePermission();
         if(callPermissionGranted && mUserDetails !=null) {
             mUserDetails.setCalled(true);
