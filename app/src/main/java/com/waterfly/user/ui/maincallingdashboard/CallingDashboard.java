@@ -93,7 +93,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     private boolean gpsStatus;
     private int allowLocationPermissionCount = 1;
     private NearByVendorsResponse mNearByVendorsResponse;
-    private MarkerOptions vendorMarkerOptions;
+//    private MarkerOptions vendorMarkerOptions;
     private Marker vendorMarker;
     private InterstitialAd mInterstitialAd;
 
@@ -170,35 +170,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                         mInterstitialAd = null;
                     }
                 });
-
-//        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-//            @Override
-//            public void onAdDismissedFullScreenContent() {
-//                // Called when fullscreen content is dismissed.
-//                Log.d("TAG", "The ad was dismissed.");
-//            }
-//
-//            @Override
-//            public void onAdFailedToShowFullScreenContent(AdError adError) {
-//                // Called when fullscreen content failed to show.
-//                Log.d("TAG", "The ad failed to show.");
-//            }
-//
-//            @Override
-//            public void onAdShowedFullScreenContent() {
-//                // Called when fullscreen content is shown.
-//                // Make sure to set your reference to null so you don't
-//                // show it a second time.
-//                mInterstitialAd = null;
-//                Log.d("TAG", "The ad was shown.");
-//            }
-//        });
-    }
-
-    private void showInterstitial() {
-//        if (mInterstitialAd.show();) {
-
-//        }
     }
 
     public void CheckGpsStatus(Place place){
@@ -218,10 +189,8 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
-
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -260,8 +229,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
             // Turn on the My Location layer and the related control on the map.
             updateLocationUI();
 
-//            Log.i("TAG", "Place: " + place.toString());
-
             // Get the current location of the device and set the position of the map.
             CheckGpsStatus(place);
         }else{
@@ -288,8 +255,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         }
     }
 
-
-
     private void getDeviceLocation(Place place) {
         /*
          * Get the best and most recent location of the device, which may be null in rare
@@ -307,15 +272,15 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                             lastKnownLocation = task.getResult();
                             if (lastKnownLocation != null) {
                                 if(place == null || place.getLatLng() == null) {
-                                    mMap.addMarker(new MarkerOptions()
-                                            .position(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude())));
+                                    vendorMarker = mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())));
 
                                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
                                     mMainViewModel.getNearByVendorDetails(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
 //                                    28.576332, 77.386383
                                 } else{
-                                    mMap.addMarker(new MarkerOptions()
+                                    vendorMarker = mMap.addMarker(new MarkerOptions()
                                             .position(place.getLatLng()));
 
                                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), DEFAULT_ZOOM));
@@ -324,7 +289,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                                 }
                             }
                         } else {
-                            mMap.addMarker(new MarkerOptions()
+                            vendorMarker = mMap.addMarker(new MarkerOptions()
                                     .position(defaultLocation));
 
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
@@ -339,7 +304,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         }
     }
 
-
     @Override
     public void handleError(Throwable throwable) {
         //Handle Error here
@@ -349,8 +313,10 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     public void onUserDetailsClicked(Datum userDetails) {
         mUserDetails = userDetails;
         userDetailsAdapter.setSelectedCard(userDetails);
-
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(userDetails.getLatitude()),Double.parseDouble(userDetails.getLongitude())), 18));
+        userDetailsAdapter.notifyDataSetChanged();
+//        vendorMarker.setTitle(userDetails.getVendorName());
+//        vendorMarker.showInfoWindow();
 
     }
 
@@ -358,7 +324,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.no_vendor_near_you))
-//set negative button
                 .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -479,15 +444,15 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
             mActivityMainBinding.btnCallBtn.setBackground(getResources().getDrawable(R.drawable.call_btn__shape_bk));
             mActivityMainBinding.btnCallBtn.setClickable(true);
             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_car);
+
             userDetailsAdapter.setItems(nearByVendorsResponse.getData());
-            if (nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
-                for (int i = 0; i < nearByVendorsResponse.getData().size(); i++) {
-                    if (vendorMarker != null) {
-                        vendorMarker.remove();
-                    }
-                    vendorMarkerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
+
+            if(nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
+                for(int i =0 ; i < nearByVendorsResponse.getData().size() ; i++) {
+                    MarkerOptions vendorMarkerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
                             Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                             .icon(icon);
+
                     vendorMarker = mMap.addMarker(vendorMarkerOptions);
                 }
             }

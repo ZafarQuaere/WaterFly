@@ -136,15 +136,12 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
         }
 
         private void setClickListener(Datum userDetails) {
-//            ,List<Datum> items
             itemView.setTag(userDetails);
-//            itemView.setTag(2,items);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-//            ,(List<Datum>) view.getTag(2)
             listener.onUserDetailsClicked((Datum) view.getTag());
         }
     }
