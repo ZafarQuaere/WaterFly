@@ -105,7 +105,8 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
             setClickListener(userDetails);
             setTitle(userDetails.getVendorName());
 //            setImage(userDetails.getAvatar());
-            setDescription(String.format("%.2f",Double.parseDouble(userDetails.getDistance()))+" KM");
+            Double distance = Double.parseDouble(userDetails.getDistance()) * 1000.0;
+            setDescription(String.format("%.2f",distance)+" Meter");
 
             if(userDetails.isSelectedCard()){
                 l_cardBg.setBackgroundResource(R.drawable.vender_card_selected_bg1);

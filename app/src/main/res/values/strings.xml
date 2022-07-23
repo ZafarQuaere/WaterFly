@@ -39,6 +39,8 @@
 
     <string name="banner_ad_unit_id">ca-app-pub-9241944820372408/2917287352</string>
     <string name="interstitial_full_screen">ca-app-pub-9241944820372408/4010877172</string>
+    <string name="ok">Ok</string>
+    <string name="calling_from_waterfly_app_msg">Please mention you are calling from WaterFly App.</string>
 
 
 </resources>

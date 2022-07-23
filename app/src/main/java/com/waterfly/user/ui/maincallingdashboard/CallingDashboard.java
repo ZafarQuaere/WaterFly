@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -23,10 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -45,6 +43,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -63,14 +63,13 @@ import com.waterfly.user.data.network.model.nearbyvendors.Datum;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.databinding.ActivityFullMapBinding;
 import com.waterfly.user.ui.base.BaseActivity;
+import com.waterfly.user.ui.interfaces.DialogSingleButtonListener;
 import com.waterfly.user.utils.AppConstants;
+import com.waterfly.user.utils.DialogUtil;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, CallingDashBoardViewModel> implements UserDetailsAdapter.UserDetailsListener, CallingDashboardNavigator, OnMapReadyCallback {
 
@@ -94,7 +93,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     private int allowLocationPermissionCount = 1;
     private NearByVendorsResponse mNearByVendorsResponse;
 //    private MarkerOptions vendorMarkerOptions;
-    private Marker vendorMarker;
+    private Marker mainMarker;
     private InterstitialAd mInterstitialAd;
 
     public static Intent newIntent(Context context) {
@@ -272,7 +271,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                             lastKnownLocation = task.getResult();
                             if (lastKnownLocation != null) {
                                 if(place == null || place.getLatLng() == null) {
-                                    vendorMarker = mMap.addMarker(new MarkerOptions()
+                                    Marker vendorMarker = mMap.addMarker(new MarkerOptions()
                                             .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())));
 
                                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
@@ -280,7 +279,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                                     mMainViewModel.getNearByVendorDetails(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
 //                                    28.576332, 77.386383
                                 } else{
-                                    vendorMarker = mMap.addMarker(new MarkerOptions()
+                                    Marker vendorMarker = mMap.addMarker(new MarkerOptions()
                                             .position(place.getLatLng()));
 
                                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), DEFAULT_ZOOM));
@@ -289,7 +288,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                                 }
                             }
                         } else {
-                            vendorMarker = mMap.addMarker(new MarkerOptions()
+                            Marker  vendorMarker = mMap.addMarker(new MarkerOptions()
                                     .position(defaultLocation));
 
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
@@ -314,10 +313,16 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         mUserDetails = userDetails;
         userDetailsAdapter.setSelectedCard(userDetails);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(userDetails.getLatitude()),Double.parseDouble(userDetails.getLongitude())), 18));
-        userDetailsAdapter.notifyDataSetChanged();
-//        vendorMarker.setTitle(userDetails.getVendorName());
-//        vendorMarker.showInfoWindow();
+//        displayLine(userDetails);
+    }
 
+    private void displayLine(Datum userDetails) {
+        if (lastKnownLocation != null) {
+            Polyline line = mMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), new LatLng(Double.parseDouble(userDetails.getLatitude()), Double.parseDouble(userDetails.getLongitude())))
+                    .width(5)
+                    .color(Color.RED));
+        }
     }
 
     private void openDialogVendorNotFound(){
@@ -388,18 +393,23 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         }
         getPhonePermission();
         if(callPermissionGranted && mUserDetails !=null) {
-            mUserDetails.setCalled(true);
-            mUserDetails.setSelectedCard(false);
-            userDetailsAdapter.notifyDataSetChanged();
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:"+mUserDetails.getPhone()));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try{
-            startActivity(intent);
-        }
-        catch(SecurityException e) {
-            e.printStackTrace();
-        }
+            DialogUtil.showDialogSingleActionButton(this,getString(R.string.ok),getString(R.string.calling_from_waterfly_app_msg),new DialogSingleButtonListener(){
+                @Override
+                public void okClick() {
+                    mUserDetails.setCalled(true);
+                    mUserDetails.setSelectedCard(false);
+                    userDetailsAdapter.notifyDataSetChanged();
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:"+mUserDetails.getPhone()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try{
+                        startActivity(intent);
+                    }
+                    catch(SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }else{
             Toast.makeText(WaterFlyApp.getInstance(),"Please select vendor",Toast.LENGTH_SHORT).show();
         }
@@ -407,7 +417,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
 
     @Override
     public void onCallRefresh() {
-//        try {
             if (lastKnownLocation == null) {
                 updateLocationUI();
                 CheckGpsStatus(place);
@@ -418,11 +427,6 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                     mMainViewModel.getNearByVendorDetails(place.getLatLng().latitude, place.getLatLng().longitude);
                 }
             }
-        /*} catch (Exception e) {
-            updateLocationUI();
-            CheckGpsStatus(place);
-            e.printStackTrace();
-        }*/
     }
 
     @Override
@@ -432,8 +436,8 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     @Override
     public void nearByVendorDetails(NearByVendorsResponse nearByVendorsResponse) {
         this.mNearByVendorsResponse = nearByVendorsResponse;
-        if (vendorMarker != null) {
-            vendorMarker.remove();
+        if (mainMarker != null) {
+            mainMarker.remove();
         }
         if(nearByVendorsResponse == null){
             userDetailsAdapter.setItems(null);
@@ -453,7 +457,8 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                             Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                             .icon(icon);
 
-                    vendorMarker = mMap.addMarker(vendorMarkerOptions);
+                    mainMarker = mMap.addMarker(vendorMarkerOptions);
+
                 }
             }
         }
