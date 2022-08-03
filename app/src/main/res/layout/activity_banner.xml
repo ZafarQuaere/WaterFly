@@ -8,7 +8,7 @@
         <import type="android.view.View" />
         <variable
             name="BannerViewModel"
-            type="com.waterfly.user.ui.main.BannerViewModel" />
+            type="com.waterfly.user.ui.banner.BannerViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -55,22 +55,23 @@
                             style="@style/parent"
                             android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:text="WATERFLY"
-                            android:textAlignment="textStart"
-                            android:textColor="#000000"
-                            android:textSize="20dp"
+                            android:text="@string/app_name"
+                            android:textAllCaps="true"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="20sp"
                             android:textStyle="normal" />
 
                         <ImageView
                             android:id="@+id/ic_userDetails"
                             android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_gravity="right|center_vertical"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
                             android:adjustViewBounds="true"
                             android:onClick="@{(v) -> BannerViewModel.onUserIconClick()}"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_user"
-                            android:visibility="gone" />
+                            android:src="@drawable/ic_menu"
+                            android:visibility="visible" />
 
                     </LinearLayout>
 
@@ -93,7 +94,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -180,6 +181,7 @@
 
                     <com.google.android.gms.ads.AdView
                         android:id="@+id/adView"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -199,7 +201,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:text="Search other locations"
                             android:textAlignment="textStart"
@@ -234,13 +236,14 @@
                         android:text="Around you"
                         android:textAlignment="textStart"
                         android:textColor="#000000"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:layout_marginBottom="50dp"
+                        android:visibility="visible"
+                        android:layout_marginBottom="5dp"
                         android:background="@drawable/login_shape_bk">
 
                         <fragment
@@ -248,7 +251,7 @@
                             android:name="com.google.android.gms.maps.SupportMapFragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:context=".ui.main.BannerActivity" />
+                            tools:context=".ui.banner.BannerActivity" />
 
                         <RelativeLayout
                             android:id="@+id/r_mapLayer"
@@ -256,6 +259,11 @@
                             android:layout_height="match_parent"
                             android:clickable="true" />
                     </RelativeLayout>
+
+                    <include
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        layout="@layout/find_nearby_vendors_button"/>
                 </LinearLayout>
 
             </ScrollView>

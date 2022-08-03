@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.waterfly.user.data.DataManager;
-import com.waterfly.user.ui.main.BannerViewModel;
+import com.waterfly.user.ui.banner.BannerViewModel;
 import com.waterfly.user.ui.maincallingdashboard.CallingDashBoardViewModel;
 import com.waterfly.user.ui.login.LoginViewModel;
 import com.waterfly.user.ui.otpverification.OtpVerificationViewModel;

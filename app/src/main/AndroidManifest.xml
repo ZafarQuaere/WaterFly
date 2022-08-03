@@ -49,7 +49,7 @@
 
         <activity
             android:hardwareAccelerated="true"
-            android:name="com.waterfly.user.ui.main.BannerActivity"/>
+            android:name="com.waterfly.user.ui.banner.BannerActivity"/>
 
         <activity android:name="com.waterfly.user.ui.login.LoginActivity"
             android:windowSoftInputMode="adjustPan"

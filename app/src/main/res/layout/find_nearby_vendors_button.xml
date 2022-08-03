@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/find_nearby_vendors_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dialog_padding"
+    android:onClick="navigateToDashboard"
+    android:background="@drawable/find_vendors_bg"
+    android:elevation="10dp">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dialog_padding"
+        android:background="@drawable/ic_arrow_forward"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/dialog_padding"
+        android:text="@string/click_to_find_nearby_vendor"
+        android:textSize="@dimen/font_click_text_size"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:textColor="@color/colorWhite"/>
+
+</LinearLayout>

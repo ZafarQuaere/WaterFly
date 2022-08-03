@@ -12,7 +12,7 @@ import com.waterfly.user.ViewModelFactory;
 import com.waterfly.user.data.DataManager;
 import com.waterfly.user.databinding.ActivityUserDetailsBinding;
 import com.waterfly.user.ui.base.BaseActivity;
-import com.waterfly.user.ui.main.BannerActivity;
+import com.waterfly.user.ui.banner.BannerActivity;
 import com.waterfly.user.utils.AppValidationMassages;
 
 public class UserDetailActivity extends BaseActivity<ActivityUserDetailsBinding, UserDetailViewModel> implements UserDetailNavigator {

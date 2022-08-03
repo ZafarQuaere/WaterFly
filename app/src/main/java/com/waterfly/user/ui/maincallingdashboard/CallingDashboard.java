@@ -71,6 +71,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.internal.Utils;
+
 public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, CallingDashBoardViewModel> implements UserDetailsAdapter.UserDetailsListener, CallingDashboardNavigator, OnMapReadyCallback {
 
     private ActivityFullMapBinding mActivityMainBinding;
@@ -445,20 +447,19 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
             mActivityMainBinding.btnCallBtn.setBackground(getResources().getDrawable(R.drawable.call_grey_shape_bk));
             mActivityMainBinding.btnCallBtn.setClickable(false);
         }else{
+
+            DialogUtil.showToast(this, getString(R.string.refreshed_successfully));
+
             mActivityMainBinding.btnCallBtn.setBackground(getResources().getDrawable(R.drawable.call_btn__shape_bk));
             mActivityMainBinding.btnCallBtn.setClickable(true);
             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_car);
-
             userDetailsAdapter.setItems(nearByVendorsResponse.getData());
-
             if(nearByVendorsResponse.getData() != null && nearByVendorsResponse.getData().size() > 0) {
                 for(int i =0 ; i < nearByVendorsResponse.getData().size() ; i++) {
                     MarkerOptions vendorMarkerOptions = new MarkerOptions().position(new LatLng(Double.parseDouble(nearByVendorsResponse.getData().get(i).getLatitude()),
                             Double.parseDouble(nearByVendorsResponse.getData().get(i).getLongitude()))).title(nearByVendorsResponse.getData().get(i).getVendorName())
                             .icon(icon);
-
                     mainMarker = mMap.addMarker(vendorMarkerOptions);
-
                 }
             }
         }

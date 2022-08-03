@@ -7,6 +7,33 @@
     <dimen name="cardCornerRadius">20dp</dimen>
     <dimen name="viewsMargin">20dp</dimen>
 
+
+
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
+    <dimen name="_3dp">3dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
+    <dimen name="_8dp">8dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="_15dp">15dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_30dp">30dp</dimen>
+    <dimen name="_40dp">40dp</dimen>
+    <dimen name="_50dp">50dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
+    <dimen name="_120dp">120dp</dimen>
+    <dimen name="_150dp">150dp</dimen>
+    <dimen name="_250dp">250dp</dimen>
+
+    <dimen name="font_small_text">12sp</dimen>
+    <dimen name="font_regular_text">14sp</dimen>
+    <dimen name="font_actionbar_title_text">16sp</dimen>
+    <dimen name="font_x_large_text">20sp</dimen>
+    <dimen name="font_xx_large_text">25sp</dimen>
+    <dimen name="font_large_text">16sp</dimen>
+
+
     <!-- Dialog single button dimens-->
     <dimen name="dialog_padding">10dp</dimen>
     <dimen name="dialog_corner_radius">15dp</dimen>
@@ -18,4 +45,5 @@
     <dimen name="dialog_btn_ok_height">45dp</dimen>
     <dimen name="dialog_btn_text_size">15sp</dimen>
     <dimen name="dialog_btn_text_small">11sp</dimen>
+    <dimen name="font_click_text_size">14sp</dimen>
 </resources>

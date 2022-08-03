@@ -1,4 +1,4 @@
-package com.waterfly.user.ui.main;
+package com.waterfly.user.ui.banner;
 
 
 import com.google.android.libraries.places.api.model.Place;

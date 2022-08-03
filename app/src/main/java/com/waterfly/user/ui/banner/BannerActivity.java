@@ -1,4 +1,4 @@
-package com.waterfly.user.ui.main;
+package com.waterfly.user.ui.banner;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,10 +26,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.MobileAdsInitProvider;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.common.api.Status;
@@ -61,13 +60,17 @@ import com.waterfly.user.data.DataManager;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.databinding.ActivityBannerBinding;
 import com.waterfly.user.ui.base.BaseActivity;
+import com.waterfly.user.ui.interfaces.DialogOkCancelListener;
 import com.waterfly.user.ui.maincallingdashboard.CallingDashboard;
 import com.waterfly.user.utils.AppConstants;
+import com.waterfly.user.utils.DialogUtil;
+import com.waterfly.user.utils.Util;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerViewModel> implements BannerScreenNavigator, OnMapReadyCallback {
+public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerViewModel> implements BannerScreenNavigator, OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private ActivityBannerBinding activityBannerBinding;
     private BannerViewModel mBannerViewModel;
@@ -141,14 +144,14 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
         actionBarDrawerToggle.syncState();
         createPermissionDialog();
         // to make the Navigation drawer icon always appear on the action bar
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
-//        TextView txtUserEmail = (TextView)header.findViewById(R.id.txtUserEmail);
-        TextView txtUserName = (TextView)header.findViewById(R.id.txtUserName);
-
-        txtUserName.setText("Hello");
-//       txtUserEmail.setText("Wasif.developer@gmail.com");
+//        TextView txtUserName = (TextView)header.findViewById(R.id.txtUserName);
+//
+//        txtUserName.setText("Hello");
+////       txtUserEmail.setText("Wasif.developer@gmail.com");
 
         findViewById(R.id.r_mapLayer).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +159,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
                 mBannerViewModel.openFullMapView(null);
             }
         });
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -223,29 +227,24 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
 
             @Override
             public void onError(@NonNull Status status) {
-                // TODO: Handle the error.
                 Log.i(AppConstants.TAG, "An error occurred: " + status);
             }
         });
     }
 
+    // move to dashboard screen
+    public void navigateToDashboard(View view){
+        mBannerViewModel.openFullMapView(null);
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         if(googleMap != null) {
             mMap = googleMap;
-//            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//                @Override
-//                public void onMapClick(@NonNull LatLng latLng) {
-//                    mMainViewModel.openFullMapView(null);
-////                    Toast.makeText(WaterFlyApp.getInstance(), "Map Click", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-            // Turn on the My Location layer and the related control on the map.
+       // Turn on the My Location layer and the related control on the map.
             updateLocationUI();
             // Get the current location of the device and set the position of the map.
             CheckGpsStatus();
-//            getDeviceLocation();
         }else{
             Toast.makeText(WaterFlyApp.getInstance(), "null", Toast.LENGTH_SHORT).show();
         }
@@ -388,7 +387,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
                         startActivityForResult(intent,0);
                     }
                 }).setCancelable(false);
-        alertDialogPermission= alert.create();
+        alertDialogPermission = alert.create();
     }
 
     private void openDialog(){
@@ -415,7 +414,22 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
             super.onBackPressed();
         }
     }
-    
+
+
+    public void logoutUser() {
+        DialogUtil.showDialogDoubleButton(this, getString(R.string.cancel), getString(R.string.ok),
+                getString(R.string.do_you_really_want_to_logout), new DialogOkCancelListener() {
+                    @Override
+                    public void onOkClick() {
+//                        clearUserDataNLogout();
+                    }
+
+                    @Override
+                    public void onCancelClick() {
+                    }
+                });
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -475,4 +489,26 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_about_us:
+                DialogUtil.showToast(this, "About Us");
+                break;
+            case R.id.nav_contact_us:
+                DialogUtil.showToast(this, "Contact Us");
+                break;
+            case R.id.nav_share:
+                Util.shareApp(this);
+                break;
+            case R.id.nav_account:
+                DialogUtil.showToast(this, "Account");
+                break;
+            case R.id.nav_logout:
+                logoutUser();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

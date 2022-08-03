@@ -19,7 +19,7 @@ import com.waterfly.user.data.DataManager;
 import com.waterfly.user.databinding.ActivitySplashBinding;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.login.LoginActivity;
-import com.waterfly.user.ui.main.BannerActivity;
+import com.waterfly.user.ui.banner.BannerActivity;
 
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {

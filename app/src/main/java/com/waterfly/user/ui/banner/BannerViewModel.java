@@ -1,4 +1,4 @@
-package com.waterfly.user.ui.main;
+package com.waterfly.user.ui.banner;
 
 import android.os.Build;
 
@@ -25,7 +25,7 @@ public class BannerViewModel extends BaseViewModel<BannerScreenNavigator> {
     }
 
     public void onUserIconClick() {
-        if(nearByVendorsResponse !=null)
+//        if(nearByVendorsResponse !=null)
         getNavigator().openUserDetailsPopUp(nearByVendorsResponse);
     }
 

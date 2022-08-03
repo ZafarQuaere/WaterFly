@@ -9,6 +9,7 @@ import androidx.databinding.ObservableBoolean;
 import com.waterfly.user.data.DataManager;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.ui.base.BaseViewModel;
+import com.waterfly.user.utils.DialogUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,14 +57,12 @@ public class CallingDashBoardViewModel extends BaseViewModel<CallingDashboardNav
         public void onResponse(@NonNull Call<NearByVendorsResponse> call, @NonNull Response<NearByVendorsResponse> response) {
             NearByVendorsResponse nearByVendorsResponse = response.body();
             setIsLoading(false);
-
             if (nearByVendorsResponse != null && nearByVendorsResponse.getStatus() == 1) {
                     setNearByVendorDetailsOnMap(nearByVendorsResponse);
             } else {
                 setIsLoading(false);
                 setNearByVendorDetailsOnMap(null);
                 getNavigator().handleMassages(nearByVendorsResponse.getMessage().get(0));
-//                Toast.makeText(WaterFlyApp.getInstance(), nearByVendorsResponse.getMessage().get(0), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -77,6 +76,4 @@ public class CallingDashBoardViewModel extends BaseViewModel<CallingDashboardNav
     public void onCallRefresh(){
         getNavigator().onCallRefresh();
     }
-
-
 }

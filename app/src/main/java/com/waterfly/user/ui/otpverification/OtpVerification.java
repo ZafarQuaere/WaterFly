@@ -16,7 +16,7 @@ import com.waterfly.user.data.DataManager;
 import com.waterfly.user.databinding.ActivityOtpVerifyBinding;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.login.LoginActivity;
-import com.waterfly.user.ui.main.BannerActivity;
+import com.waterfly.user.ui.banner.BannerActivity;
 import com.waterfly.user.ui.userdetails.UserDetailActivity;
 import com.waterfly.user.utils.AppConstants;
 import com.waterfly.user.utils.AppValidationMassages;

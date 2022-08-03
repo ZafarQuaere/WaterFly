@@ -41,6 +41,16 @@
     <string name="interstitial_full_screen">ca-app-pub-9241944820372408/4010877172</string>
     <string name="ok">Ok</string>
     <string name="calling_from_waterfly_app_msg">Please mention you are calling from WaterFly App.</string>
-
+    <string name="click_to_find_nearby_vendor">Click to find nearest vendors</string>
+    <string name="refreshed_successfully">Refreshed Successfully</string>
+    <string name="share_app">Share App</string>
+    <string name="my_profile">My Profile</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="select_app_to_share">Select App to share</string>
+    <string name="share_app_content">WaterFly - A quickest Water Delivery App. Find the nearest Water Vendor on the map and order the water to get the quickest delivery.
+        \nDownload the app here:\n </string>
+    <string name="cancel">Cancel</string>
+    <string name="do_you_really_want_to_logout">Do you really want to logout ?</string>
 
 </resources>
