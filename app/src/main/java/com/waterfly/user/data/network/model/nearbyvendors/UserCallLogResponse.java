@@ -1,11 +1,11 @@
 package com.waterfly.user.data.network.model.nearbyvendors;
 
-import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NearByVendorsResponse {
+import java.util.List;
+
+public class UserCallLogResponse {
 
     @SerializedName("message")
     @Expose
@@ -17,7 +17,7 @@ public class NearByVendorsResponse {
     @Expose
     private List<Datum> data = null;
 
-    public NearByVendorsResponse() {
+    public UserCallLogResponse() {
     }
 
     public List<String> getMessage() {
@@ -43,5 +43,6 @@ public class NearByVendorsResponse {
     public void setData(List<Datum> data) {
         this.data = data;
     }
+
 
 }

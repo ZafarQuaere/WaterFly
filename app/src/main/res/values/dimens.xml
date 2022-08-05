@@ -6,7 +6,7 @@
     <dimen name="textSize">18sp</dimen>
     <dimen name="cardCornerRadius">20dp</dimen>
     <dimen name="viewsMargin">20dp</dimen>
-
+    <dimen name="drawable_padding">15dp</dimen>
 
 
     <dimen name="_1dp">1dp</dimen>
@@ -46,4 +46,5 @@
     <dimen name="dialog_btn_text_size">15sp</dimen>
     <dimen name="dialog_btn_text_small">11sp</dimen>
     <dimen name="font_click_text_size">14sp</dimen>
+    <dimen name="toolbar_height">60dp</dimen>
 </resources>

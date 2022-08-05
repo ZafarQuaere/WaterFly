@@ -77,6 +77,9 @@ public class OtpVerificationViewModel extends BaseViewModel<OtpVerificationNavig
         getDataManager().getSharedPreference().setAccessToken(otpVerifiedResponse.getData().get(0).getJWTToken());
 //        getDataManager().getSharedPreference().setUserId(otpVerifiedResponse.getData().get(0).getId());
         getDataManager().getSharedPreference().setUserId(otpVerifiedResponse.getData().get(0).getId());
+        getDataManager().getSharedPreference().setUserId(otpVerifiedResponse.getData().get(0).getId());
+        getDataManager().getSharedPreference().setUserName(otpVerifiedResponse.getData().get(0).getName());
+        getDataManager().getSharedPreference().setUserPhone(otpVerifiedResponse.getData().get(0).getPhone());
 
         if(otpVerifiedResponse.getData().get(0).getDetailsCompleted().equalsIgnoreCase("0")){
             getNavigator().openUserDetailsActivity();

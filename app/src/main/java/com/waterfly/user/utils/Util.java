@@ -2,6 +2,7 @@ package com.waterfly.user.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.waterfly.user.BuildConfig;
 import com.waterfly.user.R;
@@ -20,6 +21,17 @@ public class Util {
         } catch (Exception e) {
             e.printStackTrace();
             DialogUtil.ERROR(e.getMessage());
+        }
+    }
+
+    public static void openInPlayStore(Activity activity) {
+        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity object
+        try {
+            Uri uri = Uri.parse("market://details?id=" + appPackageName);
+            activity.startActivity(new Intent(Intent.ACTION_VIEW,uri));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName);
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
     }
 }

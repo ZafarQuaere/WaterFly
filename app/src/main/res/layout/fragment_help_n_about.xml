@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_10dp"
+        android:padding="@dimen/_20dp">
+
+        <TextView
+            style="@style/LargeTextview"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:text="@string/about_app"
+            android:textColor="@color/colorBlack"
+            android:visibility="visible" />
+
+        <TextView
+            style="@style/RegularTextview"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10dp"
+            android:lineSpacingExtra="6dp"
+            android:letterSpacing="0.09"
+            android:textSize="@dimen/font_regular_text"
+            android:text="@string/about_waterfly_description"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/textContact"
+            style="@style/LargeTextview"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:text="@string/contact_us"
+            android:textColor="@color/colorBlack"
+            android:visibility="gone" />
+
+        <TextView
+            style="@style/RegularTextview"
+            android:layout_marginTop="@dimen/_50dp"
+            android:autoLink="phone"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:gravity="center_vertical"
+            android:text="@string/contact_mobile_no"
+            android:textColor="@color/colorBlack"
+            android:textColorLink="@color/colorPrimary" />
+
+        <TextView
+            style="@style/RegularTextview"
+            android:layout_marginTop="@dimen/_30dp"
+            android:autoLink="email"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:gravity="center_vertical"
+            android:text="@string/contact_email"
+            android:textColor="@color/colorBlack"
+            android:textColorLink="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:orientation="vertical">
+
+
+            <ImageButton
+                android:id="@+id/iconPlaystore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/ic_playstore_colored" />
+
+            <TextView
+                android:id="@+id/labelPS"
+                style="@style/RegularTextview"
+                android:layout_toRightOf="@+id/iconPlaystore"
+                android:gravity="center_vertical"
+                android:text="@string/rate_us_playstore"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/textPlaystoreLink"
+                style="@style/RegularTextview"
+                android:layout_below="@+id/labelPS"
+                android:layout_toRightOf="@+id/iconPlaystore"
+                android:text="@string/playstore_link"
+                android:textColor="@color/colorBlack"
+                android:textColorLink="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_30dp">
+
+            <ImageButton
+                android:id="@+id/iconWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/ic_website" />
+
+            <TextView
+                android:id="@+id/labelWeb"
+                style="@style/RegularTextview"
+                android:layout_toRightOf="@+id/iconWebsite"
+                android:gravity="center_vertical"
+                android:text="@string/text_visit_our_website"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/textWebsite"
+                style="@style/RegularTextview"
+                android:layout_below="@+id/labelWeb"
+                android:layout_toRightOf="@+id/iconWebsite"
+                android:linksClickable="true"
+                android:text="@string/website_link"
+                android:textColor="@color/colorBlack"
+                android:textColorLink="@color/colorPrimary"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/iconFb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/ic_fb_colored" />
+
+            <TextView
+                android:id="@+id/labelFb"
+                style="@style/RegularTextview"
+                android:layout_toRightOf="@+id/iconFb"
+                android:gravity="center_vertical"
+                android:text="@string/text_like_on_fb"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/text_fb_link"
+                style="@style/RegularTextview"
+                android:layout_below="@+id/labelFb"
+                android:layout_toRightOf="@+id/iconFb"
+                android:linksClickable="true"
+                android:text="@string/fb_link"
+                android:textColor="@color/colorBlack"
+                android:textColorLink="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/iconInsta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/ic_instagram_colored" />
+
+            <TextView
+                android:id="@+id/labelInsta"
+                style="@style/RegularTextview"
+                android:layout_toRightOf="@id/iconInsta"
+                android:gravity="center_vertical"
+                android:text="@string/text_follow_us_on_insta"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/text_insta_link"
+                style="@style/RegularTextview"
+                android:layout_below="@+id/labelInsta"
+                android:layout_toRightOf="@+id/iconInsta"
+                android:linksClickable="true"
+                android:text="@string/insta_link"
+                android:textColor="@color/colorBlack"
+                android:textColorLink="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+
+            <ImageButton
+                android:id="@+id/iconTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/ic_twitter_colored" />
+
+            <TextView
+                android:id="@+id/labelTwitter"
+                style="@style/RegularTextview"
+                android:layout_toRightOf="@+id/iconTwitter"
+                android:gravity="center_vertical"
+                android:text="@string/follow_us_on_twitter"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/text_twitter_link"
+                style="@style/RegularTextview"
+                android:layout_below="@+id/labelTwitter"
+                android:layout_toRightOf="@+id/iconTwitter"
+                android:linksClickable="true"
+                android:text="@string/twitter_link"
+                android:textColor="@color/colorBlack"
+                android:textColorLink="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

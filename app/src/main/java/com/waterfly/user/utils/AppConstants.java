@@ -17,4 +17,5 @@ public final class AppConstants {
     public static final String USER_LONGITUDE="user_longitude";
     public static final String NEAR_BY_VENDOR_DETAILS="nearByVendorDetails";
     public static final String PLACES_DETAILS="placeDetails";
+    public static final String VENDOR_ID = "vendor_id";
 }

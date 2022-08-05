@@ -25,12 +25,10 @@ public class BannerViewModel extends BaseViewModel<BannerScreenNavigator> {
     }
 
     public void onUserIconClick() {
-//        if(nearByVendorsResponse !=null)
         getNavigator().openUserDetailsPopUp(nearByVendorsResponse);
     }
 
     public void openFullMapView(Place place){
-//        if(nearByVendorsResponse !=null)
         getNavigator().openFullMapView(nearByVendorsResponse,place);
     }
 

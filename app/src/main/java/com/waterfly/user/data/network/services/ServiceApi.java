@@ -6,6 +6,7 @@ import com.waterfly.user.data.network.model.LoginResponse;
 import com.waterfly.user.data.network.model.SendOtpResponse;
 import com.waterfly.user.data.network.model.UserDetailsResponse;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
+import com.waterfly.user.data.network.model.nearbyvendors.UserCallLogResponse;
 import com.waterfly.user.data.network.model.verifiedOtpResponse.OtpVerifiedResponse;
 
 
@@ -35,5 +36,9 @@ public interface ServiceApi {
 
     @GET(ApiConstants.NEAR_BY_VENDOR)
     Call<NearByVendorsResponse> getNearByVendorDetails(@Query("user_id") String user_id,@Query("user_latitude") double user_latitude,@Query("user_longitude") double user_longitude);
+
+
+    @POST(ApiConstants.USER_CALL_LOGS)
+    Call<UserCallLogResponse> userCallLogApi(@Body RequestBody body);
 
 }

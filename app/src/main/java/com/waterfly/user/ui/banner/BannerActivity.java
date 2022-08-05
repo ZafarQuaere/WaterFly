@@ -57,13 +57,17 @@ import com.waterfly.user.R;
 import com.waterfly.user.ViewModelFactory;
 import com.waterfly.user.WaterFlyApp;
 import com.waterfly.user.data.DataManager;
+import com.waterfly.user.data.local.prefs.AppPreferencesHelper;
 import com.waterfly.user.data.network.model.nearbyvendors.NearByVendorsResponse;
 import com.waterfly.user.databinding.ActivityBannerBinding;
 import com.waterfly.user.ui.base.BaseActivity;
 import com.waterfly.user.ui.interfaces.DialogOkCancelListener;
 import com.waterfly.user.ui.maincallingdashboard.CallingDashboard;
+import com.waterfly.user.ui.splash.SplashActivity;
+import com.waterfly.user.ui.userdetails.UserProfile;
 import com.waterfly.user.utils.AppConstants;
 import com.waterfly.user.utils.DialogUtil;
+import com.waterfly.user.utils.HelpNAboutActivity;
 import com.waterfly.user.utils.Util;
 
 import java.util.Arrays;
@@ -421,13 +425,21 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
                 getString(R.string.do_you_really_want_to_logout), new DialogOkCancelListener() {
                     @Override
                     public void onOkClick() {
-//                        clearUserDataNLogout();
+                        clearUserDataNLogout();
                     }
 
                     @Override
                     public void onCancelClick() {
                     }
                 });
+    }
+
+    private void clearUserDataNLogout() {
+        AppPreferencesHelper instance = AppPreferencesHelper.getInstance();
+        instance.clearAll();
+        DialogUtil.showToast(this,getString(R.string.you_have_successfully_logout));
+        startActivity(new Intent(this, SplashActivity.class));
+        finishAffinity();
     }
 
     @Override
@@ -493,16 +505,13 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding, BannerVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_about_us:
-                DialogUtil.showToast(this, "About Us");
-                break;
-            case R.id.nav_contact_us:
-                DialogUtil.showToast(this, "Contact Us");
+                startActivity(new Intent(this, HelpNAboutActivity.class));
                 break;
             case R.id.nav_share:
                 Util.shareApp(this);
                 break;
             case R.id.nav_account:
-                DialogUtil.showToast(this, "Account");
+                startActivity(new Intent(this, UserProfile.class));
                 break;
             case R.id.nav_logout:
                 logoutUser();

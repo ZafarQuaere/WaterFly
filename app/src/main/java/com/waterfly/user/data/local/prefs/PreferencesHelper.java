@@ -10,4 +10,14 @@ public interface PreferencesHelper {
     void setUserId(String user_id);
 
     String getUserId();
+
+
+    void setUserPhone(String phone);
+
+    String getUserPhone();
+
+
+    void setUserName(String name);
+
+    String getUserName();
 }

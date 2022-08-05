@@ -34,7 +34,7 @@
     <string name="dlg_location_permission_message">Allow WaterFly to automatically detect your current location to show your available vendors</string>
     <string name="dlg_location_permission_positive_btn">Open Settings</string>
 
-   <!-- <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!-- <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_full_screen">ca-app-pub-3940256099942544/1033173712</string>-->
 
     <string name="banner_ad_unit_id">ca-app-pub-9241944820372408/2917287352</string>
@@ -45,12 +45,34 @@
     <string name="refreshed_successfully">Refreshed Successfully</string>
     <string name="share_app">Share App</string>
     <string name="my_profile">My Profile</string>
-    <string name="about_us">About Us</string>
+    <string name="about_us">Contact &amp; About Us</string>
+    <string name="about_app">About WaterFly</string>
     <string name="contact_us">Contact Us</string>
     <string name="select_app_to_share">Select App to share</string>
     <string name="share_app_content">WaterFly - A quickest Water Delivery App. Find the nearest Water Vendor on the map and order the water to get the quickest delivery.
-        \nDownload the app here:\n </string>
+        \nDownload the WaterFly App now  </string>
     <string name="cancel">Cancel</string>
     <string name="do_you_really_want_to_logout">Do you really want to logout ?</string>
+    <string name="you_have_successfully_logout">You have successfully logout</string>
+
+
+    <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
+    <string name="fb_link"><a href="https://m.facebook.com/econnecto/?ref=content_filter"> facebook.com/econnecto</a></string>
+    <string name="insta_link"><a href="https://www.instagram.com/econnecto/"> instagram.com/econnecto</a></string>
+    <string name="twitter_link"><a href="https://mobile.twitter.com/Econnecto1"> twitter.com/econnecto</a></string>
+
+    <string name="playstore_link"><u>play.google.com/store/apps/waterfly</u></string>
+    <string name="text_visit_our_website">Visit Our Website : </string>
+    <string name="text_like_on_fb">Like Us on Facebook :</string>
+    <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>
+    <string name="follow_us_on_twitter">Follow us on Twitter</string>
+    <string name="rate_us_playstore">Rate Us on Play Store</string>
+    <string name="about_waterfly_description">Waterfly, first of its kind. Now find the nearby water vendors (Paaniwala) on map and get your water bottles/cans delivered really quickly.
+        \n\nYou will need to search available vendors on map and call the nearest available water vendor. This way the you do not need to wait for long.</string>
+    <string name="your_details">Your Details</string>
+    <string name="name">"Name: "</string>
+    <string name="phone">"Mobile: "</string>
+    <string name="contact_email">Email:  contact.waterfly@gmail.com</string>
+    <string name="contact_mobile_no">Contact :  +91–7677616600</string>
 
 </resources>

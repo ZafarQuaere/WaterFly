@@ -71,8 +71,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.internal.Utils;
-
 public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, CallingDashBoardViewModel> implements UserDetailsAdapter.UserDetailsListener, CallingDashboardNavigator, OnMapReadyCallback {
 
     private ActivityFullMapBinding mActivityMainBinding;
@@ -308,6 +306,7 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
     @Override
     public void handleError(Throwable throwable) {
         //Handle Error here
+        DialogUtil.ERROR(throwable.getMessage().toString());
     }
 
     @Override
@@ -401,9 +400,11 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
                     mUserDetails.setCalled(true);
                     mUserDetails.setSelectedCard(false);
                     userDetailsAdapter.notifyDataSetChanged();
+                    userCallLogApiHit(mUserDetails);
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse("tel:"+mUserDetails.getPhone()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     try{
                         startActivity(intent);
                     }
@@ -415,6 +416,10 @@ public class CallingDashboard extends BaseActivity<ActivityFullMapBinding, Calli
         }else{
             Toast.makeText(WaterFlyApp.getInstance(),"Please select vendor",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void userCallLogApiHit(Datum mUserDetails) {
+        mMainViewModel.userCallLogApi(mUserDetails.getVendorId());
     }
 
     @Override
