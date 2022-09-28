@@ -15,7 +15,7 @@ public class Util {
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "WaterFly");
             String shareMessage = activity.getString(R.string.share_app_content);
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
+            shareMessage = shareMessage +" "+ "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.select_app_to_share)));
         } catch (Exception e) {
